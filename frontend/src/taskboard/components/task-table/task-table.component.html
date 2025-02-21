@@ -1,25 +1,48 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<section class="search">
+  <input type="text" placeholder="Filter the Taskboard" #filterInput>
+  <button type="button" class="primary" (click)="updateFilter(filterInput.value)">Filter</button>
+</section>
 
-  <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef> Title </th>
-    <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
-  </ng-container>
+<div class="board" cdkDropListGroup>
+  <div class="task-status">
+    <h2>TODO</h2>
+    <div class="task-list"
+         cdkDropList
+         [cdkDropListData]="TODO"
+         (cdkDropListDropped)="drop($event)">
+      <taskboard-card *ngFor="let task of TODO"
+                      [task]="task"
+                      cdkDrag
+                      class="board-task-item">
+      </taskboard-card>
+    </div>
+  </div>
 
-  <ng-container matColumnDef="description">
-    <th mat-header-cell *matHeaderCellDef> Description </th>
-    <td mat-cell *matCellDef="let element"> {{ element.description }} </td>
-  </ng-container>
+  <div class="task-status">
+    <h2>DOING</h2>
+    <div class="task-list"
+         cdkDropList
+         [cdkDropListData]="DOING"
+         (cdkDropListDropped)="drop($event)">
+      <taskboard-card *ngFor="let task of DOING"
+                      [task]="task"
+                      cdkDrag
+                      class="board-task-item">
+      </taskboard-card>
+    </div>
+  </div>
 
-  <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef> Status </th>
-    <td mat-cell *matCellDef="let element"> {{ element.status }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="assignee">
-    <th mat-header-cell *matHeaderCellDef> Assignee </th>
-    <td mat-cell *matCellDef="let element"> {{ element.assignee?.name }} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+  <div class="task-status">
+    <h2>DONE</h2>
+    <div class="task-list"
+         cdkDropList
+         [cdkDropListData]="DONE"
+         (cdkDropListDropped)="drop($event)">
+      <taskboard-card *ngFor="let task of DONE"
+                      [task]="task"
+                      cdkDrag
+                      class="board-task-item">
+      </taskboard-card>
+    </div>
+  </div>
+</div>

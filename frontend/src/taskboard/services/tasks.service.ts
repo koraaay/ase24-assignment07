@@ -19,7 +19,18 @@ export class TasksService {
    * Get all tasks.
    */
   public getTasks(): Promise<Array<TaskDto>> {
-    const url = this.baseUrl;
-    return firstValueFrom(this.httpClient.get<Array<TaskDto>>(url));
+    return firstValueFrom(this.httpClient.get<Array<TaskDto>>(this.baseUrl));
+  }
+
+  public deleteTask(id: string): Promise<void> {
+    return firstValueFrom(
+      this.httpClient.delete<void>(`${this.baseUrl}/${id}`)
+    );
+  }
+
+  public updateTask(id: string, updated_task: TaskDto): Promise<TaskDto> {
+    return firstValueFrom(
+      this.httpClient.put<TaskDto>(`${this.baseUrl}/${id}`,updated_task)
+    );
   }
 }
